@@ -63,16 +63,16 @@ namespace DowloadExcel.ExcelHelper
                 Type type = item.Type;
                 var titleDic = CreateInstance(type);
                 //设置行样式
-                var newContentRowStyle = _currentWorkBook.CreateCellStyle();
-                if (sheetModel.ContentRowStyle != null)
-                {
-                    newContentRowStyle.CloneStyleFrom(sheetModel.HeaderRowStyle);
-                }
+                //var newContentRowStyle = _currentWorkBook.CreateCellStyle();
+                //if (sheetModel.ContentRowStyle != null)
+                //{
+                //    newContentRowStyle.CloneStyleFrom(sheetModel.HeaderRowStyle);
+                //}
                 foreach (var data in dataSoure)
                 {
                     var insertRow = sheets.CreateRow(rowIndex++);
                     if (sheetModel.ContentRowStyle != null)
-                        insertRow.RowStyle = newContentRowStyle;
+                        insertRow.RowStyle = sheetModel.ContentRowStyle;
                     for (int col = 0; col < sheetModel.ExcelHeaders.Count; col++)
                     {
                         titleDic.TryGetValue(sheetModel.ExcelHeaders[col].Title, out string propertyName);
@@ -84,10 +84,10 @@ namespace DowloadExcel.ExcelHelper
                             //设置单元格样式　　　　
                             if (cellStyle != null)
                             {
-                                var newCelStyle = _currentWorkBook.CreateCellStyle();
-                                newCelStyle.CloneStyleFrom(cellStyle);
-                                cellInsert.CellStyle = newCelStyle;
-                                var font = cellInsert.CellStyle.GetFont(_currentWorkBook);
+                                //var newCelStyle = _currentWorkBook.CreateCellStyle() as XSSFCellStyle;
+                                //newCelStyle.CloneStyleFrom(cellStyle);
+                                //var fontStyle = cellInsert.CellStyle.GetFont(_currentWorkBook);
+                                cellInsert.CellStyle = cellStyle;
                                 //cellInsert.CellStyle.CloneStyleFrom(cellStyle);
                             }
                             var drValue = GetStringValue(data, propertyName);
